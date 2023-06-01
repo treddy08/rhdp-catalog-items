@@ -1,30 +1,5 @@
 ---
-#include /includes/parameters/enable-lets-encrypt.yaml
-#include /includes/catalog-icon-openshift.yaml
-#include /includes/parameters/aws-region.yaml
-#include /includes/parameters/purpose.yaml
-#include /includes/parameters/salesforce-id.yaml
-#include /includes/lifetime-standard.yaml
-#include /includes/terms-of-service.yaml
-#include /includes/parameters/agnosticd_open_environment.yaml
-#include /includes/parameters/num-users-salesforce.yaml
-# -------------------------------------------------------------------
-# Mandatory Variables
-# -------------------------------------------------------------------
-env_type: ocp4-cluster
-software_to_deploy: openshift4
-
-# -------------------------------------------------------------------
-# Platform
-# -------------------------------------------------------------------
-platform: rhpds
-
-# -------------------------------------------------------------------
-# OpenShift Installer Version
-# -------------------------------------------------------------------
-ocp4_installer_use_dev_preview: false
-ocp4_installer_version: "4.12.12"
-ocp4_installer_root_url: http://mirror.openshift.com/pub/openshift-v4/clients
+student_name: lab-user
 
 # -------------------------------------------------------------------
 # Common Password
@@ -62,41 +37,3 @@ ocp4_workload_authentication_htpasswd_user_base: user
 ocp4_workload_authentication_htpasswd_user_password: openshift
 ocp4_workload_authentication_htpasswd_user_count: "{{ (num_users | default('5')) | int }}"
 ocp4_workload_authentication_remove_kubeadmin: true
-
-
-# -------------------------------------------------------------------
-# AgnosticV meta variables
-# -------------------------------------------------------------------
-agnosticv_meta:
-  sandboxed: false
-  deploy_with: babylon
-  params_to_variables:
-    username: student_name
-
-# -------------------------------------------------------------------
-# Babylon meta variables
-# -------------------------------------------------------------------
-__meta__:
-  aws_sandboxed: true
-  anarchy:
-    namespace: babylon-anarchy-sandboxes-gpte
-  catalog:
-    multiuser: true
-    namespace: babylon-catalog-{{ stage | default('?') }}
-    display_name: RHACS Multi-user Workshop - Base Architecture
-    labels:
-      Provider: RHDP
-      Product: Red_Hat_Advanced_Cluster_Security_Cloud_Service
-      Product_Family: Red_Hat_Cloud
-    parameters: []
-    keywords:
-    - RHACS
-    - ACS
-    - Latest
-    - security
-    - workshop
-    - clustersecurity
-    - advanceclustersecurity
-    category: Workshops
-  deployer:
-    virtualenv: ansible2.9-python3.6-2021-11-30
