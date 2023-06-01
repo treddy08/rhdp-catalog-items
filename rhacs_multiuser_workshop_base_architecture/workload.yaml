@@ -1,5 +1,9 @@
 - hosts: localhost
   tasks:
-  - name: include role
-    include_role:
-      name: ocp4_workload_authentication
+  - name: Create user
+    command: useradd -m "{{ '{{student_name}}' }}"
+
+  - include_role:
+      name: "{{ '{{item}}' }}"
+    with_items:
+      - "{{ '{{infra_workloads}}' }}"
